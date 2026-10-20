@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>demo</artifactId>
     <version>1</version>
-    <name>demo</name>
+    <name>tienda</name>
     <description/>
     <url/>
     <licenses>
@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
     <dependencies>
         <dependency>
@@ -103,6 +104,11 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-Xlint</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>
