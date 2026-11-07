@@ -67,8 +67,55 @@
             <div th:replace="~{consultas/fragmentos :: formConsulta('primary',#{consultas.derivadas},'/consultas/consultaDerivada')}"/>
             <div th:replace="~{consultas/fragmentos :: formConsulta('warning',#{consultas.jpql},'/consultas/consultaJPQL')}"/>
             <div th:replace="~{consultas/fragmentos :: formConsulta('success',#{consultas.sql},'/consultas/consultaSQL')}"/>
-            <div class='card'><p>Acá va su Práctica #2</p></div>
+            <!-- Práctica #2: Consulta ampliada -->
+            <div th:replace="~{consultas/fragmentos :: formAmpliada}"/>
         </section>
+
+        <!-- Práctica #2: formulario de la consulta ampliada -->
+        <div th:fragment='formAmpliada'>
+            <form method="post" th:action='@{/consultas/consultaAmpliada}' class='was-validated'>
+                <div class='card p-2'>
+                    <div class="card-header text-center text-white bg-danger">
+                        <h5>[[#{consultas.ampliada}]]</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class='mb-2'>
+                            <label>[[#{consultas.precio.inferior}]]</label>
+                            <input type="number" name='precioInfA' th:value='${precioInfA}'
+                                   class='form-control' min="0" required/>
+                        </div>
+                        <div class='mb-2'>
+                            <label>[[#{consultas.precio.superior}]]</label>
+                            <input type="number" name='precioSupA' th:value='${precioSupA}'
+                                   class='form-control' min="0" required/>
+                        </div>
+                        <div class='mb-2'>
+                            <label>[[#{consultas.existencias.minimas}]]</label>
+                            <input type="number" name='existenciasMin' th:value='${existenciasMin ?: 0}'
+                                   class='form-control' min="0" required/>
+                        </div>
+                        <div class='mb-2'>
+                            <label>[[#{consultas.categoria}]]</label>
+                            <select name="idCategoria" class="form-select">
+                                <option value="">[[#{consultas.todas}]]</option>
+                                <option th:each="c : ${categoriasConsulta}"
+                                        th:value="${c.idCategoria}"
+                                        th:selected="${c.idCategoria == idCategoria}"
+                                        th:text="${c.descripcion}">Categoría</option>
+                            </select>
+                        </div>
+                        <div th:if="${totalAmpliada != null}" class="text-center fw-bold">
+                            [[#{consultas.resultados}]]: [[${totalAmpliada}]]
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type='submit' class='btn btn-danger text-white'>
+                            <i class='fa-solid fa-magnifying-glass'></i> [[#{consultas.ampliada}]]
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <div th:fragment='formConsulta(colorForm, textoForm, urlForm)'>
             <form method="post" th:action='@{${urlForm}}' class='was-validated'>
