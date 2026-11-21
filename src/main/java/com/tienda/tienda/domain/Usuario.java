@@ -46,5 +46,5 @@ public class Usuario implements Serializable {
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_rol")
     )
-    private Set<Rol> roles= new HashSet<>();
+    private Set<Rol> roles = new HashSet<>();
 }
